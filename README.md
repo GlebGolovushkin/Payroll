@@ -62,5 +62,5 @@ If you want to create company with 14 employees like on image you should run fol
             repository.GetSumOfEmployesSalariesForDate(DateTime.Now.AddYears(5));
 ```
 ## Image of the following company structure
-
+![N|Solid](https://raw.githubusercontent.com/GlebGolovushkin/Payroll/main/Resources/Images/CompanyEmployeesTree.png?token=AFU7SA34G7ESH6YO2H7F2FLAOHGX6)
 # Have a good day!
