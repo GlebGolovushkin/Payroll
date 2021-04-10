@@ -1,11 +1,16 @@
 # Payroll
 
 ## Description
-This application is designed to work with company employees. In it we have an employee tree (employee trees).
-Which bypasses the algorithm and performs the task you need. For example, getting a salary or getting all the salaries of the employee tree. The problem was solved using the visitor pattern. This pattern was used because -  for each new task in the future, in which a tree traversal will be required, you will not have to change and rebuild the architecture, but only add a new visitor inherited from the IVisitor interface.
+Since the structure of the company has a hierarchy of employees, it is easiest to imagine this in the form of a tree. The tree nodes are represented by 3 main classes: manager, salesperson and employee. To calculate the salary of an employee or the general expenses of the company, the Visitor pattern was applied. This allowed to visit each node of the tree no more than 1 time to complete one task. Also, the use of the pattern allows you to expand the functionality of the basic models by introducing new implementations of the visitor.
+The main difficulty with this approach is that to get rid of repeated interactions with the tree node, you have to implement logic to store the state of the previous nodes. The approach was chosen using two stacks: one stores the sum of the salaries of the first-level subordinates for the manager, the second the sum of the salaries of all the subordinates of the seller.
+
+## Components
+- Payroll - library for processing data about company employees.
+- Payroll.Tests - project with tests for the library.
+- DemoApplication - project to demonstrate working with the library.
 
 ## Pluses
-- Flexible architecture for feature tasks in tree.
+- Flexible architecture for feature tasks with tree.
 - Flexible architecture for feature new employees and types of enployees in tree.
 - The employee tree is bypassed once.
 - No employee is billed twice or more.
