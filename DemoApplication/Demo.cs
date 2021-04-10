@@ -15,46 +15,38 @@ namespace DemoApplication
         /// <returns>Repository with employees.</returns>
         public EmployeeRepository InitEmployeeRepository()
         {
-            var employee = new Employee(DateTime.Now.AddYears(-3), 100);
-            var employee1 = new Employee(DateTime.Now.AddYears(-2), 100);
-            var employee2 = new Employee(DateTime.Now.AddYears(-1), 100);
-            var employee3 = new Employee(DateTime.Now.AddYears(-2), 100);
-            var sales = new Sales(DateTime.Now.AddYears(-1), 100);
-            var sales1 = new Sales(DateTime.Now.AddYears(-2), 100);
-            var sales2 = new Sales(DateTime.Now.AddYears(-3), 100);
-            var sales3 = new Sales(DateTime.Now.AddYears(-2), 100);
-            var manager = new Manager(DateTime.Now.AddYears(-3), 100);
-            var manager1 = new Manager(DateTime.Now.AddYears(-2), 100);
-            var manager2 = new Manager(DateTime.Now, 100);
-            var manager3 = new Manager(DateTime.Now.AddYears(-1), 100);
+            // Creating employees with date of employment and base salary without any bonuses.
+            var s = new Sales(DateTime.Now.AddYears(-11), 10000);
+            var m1 = new Manager(DateTime.Now.AddYears(-10), 8500);
+            var e1 = new Employee(DateTime.Now.AddYears(-8), 7300);
+            var s1 = new Sales(DateTime.Now.AddYears(-5), 6000);
+            var e2 = new Employee(DateTime.Now.AddYears(-2), 4000);
+            var m2 = new Manager(DateTime.Now.AddYears(-2), 4000);
+            var m3 = new Manager(DateTime.Now.AddYears(-1), 3700);
+            var e3 = new Employee(DateTime.Now.AddYears(-2), 4000);
+            var e4 = new Employee(DateTime.Now.AddYears(-3), 4500);
+            var m4 = new Manager(DateTime.Now.AddYears(-13), 9500);
+            var m5 = new Manager(DateTime.Now.AddYears(-7), 7300);
+            var e5 = new Employee(DateTime.Now.AddYears(-2), 3000);
+            var e6 = new Employee(DateTime.Now.AddYears(-1), 2000);
+            var m6 = new Manager(DateTime.Now, 1800);
 
-            manager.AddSubordinate(sales);
-            sales.AddSubordinate(manager1);
-            manager1.AddSubordinate(employee);
-            manager1.AddSubordinate(employee1);
-            manager1.AddSubordinate(sales2);
-            sales.AddSubordinate(manager2);
-            manager2.AddSubordinate(sales1);
-            sales1.AddSubordinate(employee2);
-            sales3.AddSubordinate(manager3);
-            manager3.AddSubordinate(employee3);
+            // Linking all employees.
+            s.AddSubordinates(m1, e1, s1);
+            m1.AddSubordinates(e2, m2);
+            s1.AddSubordinates(m3);
+            m3.AddSubordinates(e3);
+            m3.AddSubordinates(e4);
+            m4.AddSubordinates(m5, e5);
+            m5.AddSubordinates(e6, m6);
 
-            var company = new EmployeeRepository();
+            // Creating employee repository.
+            var repository = new EmployeeRepository();
 
-            company.AddEmployee(sales);
-            company.AddEmployee(sales1);
-            company.AddEmployee(sales2);
-            company.AddEmployee(sales3);
-            company.AddEmployee(employee);
-            company.AddEmployee(employee1);
-            company.AddEmployee(employee2);
-            company.AddEmployee(employee3);
-            company.AddEmployee(manager);
-            company.AddEmployee(manager1);
-            company.AddEmployee(manager2);
-            company.AddEmployee(manager3);
+            // Linking employee repository.
+            repository.AddEmployees(s, s1, m1, m2, m3, m4, m5, m6, e1, e2, e3, e4, e5, e6);
 
-            return company;
+            return repository;
         }
     }
 }

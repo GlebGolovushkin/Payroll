@@ -11,6 +11,25 @@ namespace Payroll.Tests.Models
     public class BaseLeadershipPositionTest
     {
         /// <summary>
+        ///     Method for testing more then one subordinate.
+        /// </summary>
+        [TestMethod]
+        public void TestEmployeesAddTwoSubordinates()
+        {
+            // Arrange
+            var employee = new Employee(DateTime.Now, 100);
+            var employee2 = new Employee(DateTime.Now, 100);
+            var manager = new Manager(DateTime.Now, 100);
+
+            // Act
+            manager.AddSubordinates(employee, employee2);
+
+            // Assert
+            Assert.IsTrue(manager.HasSubordinate(employee));
+            Assert.IsTrue(manager.HasSubordinate(employee2));
+        }
+
+        /// <summary>
         ///     Method for testing exception firing after removing employee from subordinates. And this employee is not one of
         ///     them.
         /// </summary>
@@ -37,7 +56,7 @@ namespace Payroll.Tests.Models
             var manager = new Manager(DateTime.Now, 100);
 
             // Act
-            manager.AddSubordinate(employee);
+            manager.AddSubordinates(employee);
             manager.RemoveSubordinate(employee);
 
             // Assert

@@ -23,13 +23,21 @@ namespace Payroll.Models
         }
 
         /// <summary>
-        ///     Adds transmitted employee as subordinate to current employee.
+        ///     Adds transmitted employees as subordinate to current employee.
         /// </summary>
-        /// <param name="employee">Transmitted employee.</param>
-        public void AddSubordinate(BaseEmployee employee)
+        /// <param name="employees">Transmitted employee.</param>
+        public void AddSubordinates(params BaseEmployee[] employees)
         {
-            subordinates.Add(employee);
-            employee.AddHead(this);
+            foreach (var employee in employees)
+            {
+                if (HasSubordinate(employee))
+                {
+                    throw new ArgumentException("Employee already exist in subordinates.");
+                }
+
+                subordinates.Add(employee);
+                employee.AddHead(this);
+            }
         }
 
         /// <summary>

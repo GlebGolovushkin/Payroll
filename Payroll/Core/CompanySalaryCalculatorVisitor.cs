@@ -8,6 +8,13 @@ namespace Payroll.Models.Visitor
     /// </summary>
     internal class CompanySalaryCalculatorVisitor : SalaryCalculatorVisitor
     {
+        /// <summary>
+        ///     Ctor.
+        /// </summary>
+        protected CompanySalaryCalculatorVisitor(DateTime date) : base(date)
+        {
+        }
+
         // Stores salary of all processed employees.
         private double resultSalary { get; set; }
 
@@ -42,20 +49,35 @@ namespace Payroll.Models.Visitor
         }
 
         /// <summary>
+        ///     <inheritdoc />
+        /// </summary>
+        protected override void ResetData()
+        {
+            base.ResetData();
+            resultSalary = 0;
+        }
+
+        /// <summary>
         ///     Method to get all employees salary in one employeeRepository by transmitted date.
         /// </summary>
         /// <param name="employeeRepository">Repository with employees.</param>
         /// <param name="date">Date until which to calculate the salary.</param>
         /// <returns>Sum of Employees salary in selected employeeRepository.</returns>
-        internal double GetSumOfEmployesSalaries(EmployeeRepository employeeRepository, DateTime date)
+        internal static double GetSumOfEmployesSalaries(EmployeeRepository employeeRepository, DateTime date)
         {
-            dateToCalculate = date;
+            var companySalaryCalculatorVisitor = new CompanySalaryCalculatorVisitor(date);
+            companySalaryCalculatorVisitor.ResetData();
+
             foreach (var employee in employeeRepository.Employees)
+            {
                 //Working only with the tops of trees so that there is no duplication in salary calculation.
                 if (!employee.HasHead())
-                    employee.Accept(this);
+                {
+                    employee.Accept(companySalaryCalculatorVisitor);
+                }
+            }
 
-            return resultSalary;
+            return companySalaryCalculatorVisitor.resultSalary;
         }
     }
 }

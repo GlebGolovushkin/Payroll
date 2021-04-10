@@ -53,8 +53,7 @@ namespace Payroll.Models
         /// <returns>Full salary.</returns>
         public double GetFullSalary(DateTime date)
         {
-            var salaryVisitor = new SalaryCalculatorVisitor();
-            return salaryVisitor.GetSalary(this, date);
+            return SalaryCalculatorVisitor.GetSalary(this, date);
         }
 
         /// <summary>
@@ -72,6 +71,11 @@ namespace Payroll.Models
         /// <returns>If transmitted employee is Boss of this employee</returns>
         public bool HeadIs(BaseEmployee employee)
         {
+            if (employee == null)
+            {
+                throw new ArgumentException("Employee is not set.");
+            }
+
             return Head == employee;
         }
 
@@ -95,6 +99,11 @@ namespace Payroll.Models
         /// <param name="head">Chief for the transmitted employee.</param>
         internal void AddHead(BaseLeadershipPosition head)
         {
+            if (head == null)
+            {
+                throw new ArgumentException("Chief is not set.");
+            }
+
             if (HasHead())
             {
                 throw new ArgumentException("This Employee already has Boss.");

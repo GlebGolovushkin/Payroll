@@ -11,7 +11,8 @@ namespace Payroll.Models
         ///     <inheritdoc />
         /// </summary>
         public Employee(DateTime startOfWork, int baseSalary) : base(startOfWork, baseSalary)
-        { }
+        {
+        }
 
         /// <summary>
         ///     <inheritdoc />

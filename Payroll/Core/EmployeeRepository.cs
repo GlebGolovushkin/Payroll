@@ -25,14 +25,20 @@ namespace Payroll.Core
         public List<BaseEmployee> Employees { get; }
 
         /// <summary>
-        ///     Adds transmitted employee to repository.
+        ///     Adds transmitted employees to repository.
         /// </summary>
-        /// <param name="employee">Employee to add in repository.</param>
-        public void AddEmployee(BaseEmployee employee)
+        /// <param name="employees">Employee to add in repository.</param>
+        public void AddEmployees(params BaseEmployee[] employees)
         {
-            if (ContainsEmployee(employee)) throw new Exception("Employee already exists in company.");
+            foreach (var employee in employees)
+            {
+                if (ContainsEmployee(employee))
+                {
+                    throw new Exception("Employee already exists in company.");
+                }
 
-            Employees.Add(employee);
+                Employees.Add(employee);
+            }
         }
 
         /// <summary>
@@ -52,8 +58,7 @@ namespace Payroll.Core
         /// <returns>Sum of salaries of all employees in repository.</returns>
         public double GetSumOfEmployesSalariesForDate(DateTime date)
         {
-            var visitor = new CompanySalaryCalculatorVisitor();
-            return visitor.GetSumOfEmployesSalaries(this, date);
+            return CompanySalaryCalculatorVisitor.GetSumOfEmployesSalaries(this, date);
         }
 
         /// <summary>
@@ -62,7 +67,10 @@ namespace Payroll.Core
         /// <param name="employeeToRemove">Employee to remove from repository.</param>
         public void RemoveEmployee(BaseEmployee employeeToRemove)
         {
-            if (!ContainsEmployee(employeeToRemove)) throw new Exception("Employee does not exist in company.");
+            if (!ContainsEmployee(employeeToRemove))
+            {
+                throw new Exception("Employee does not exist in company.");
+            }
 
             Employees.Remove(employeeToRemove);
             var employeeHead = employeeToRemove.Head;
@@ -70,12 +78,20 @@ namespace Payroll.Core
             {
                 if (employeeToRemove is BaseLeadershipPosition employeeToRemoveAsHead &&
                     employeeToRemoveAsHead.HasSubordinate(employee))
+                {
                     employeeToRemoveAsHead.RemoveSubordinate(employee);
+                }
 
-                if (employeeToRemove.HasHead()) employeeHead.AddSubordinate(employee);
+                if (employeeToRemove.HasHead())
+                {
+                    employeeHead.AddSubordinates(employee);
+                }
             }
 
-            if (employeeToRemove.HasHead()) employeeHead.RemoveSubordinate(employeeToRemove);
+            if (employeeToRemove.HasHead())
+            {
+                employeeHead.RemoveSubordinate(employeeToRemove);
+            }
         }
     }
 }

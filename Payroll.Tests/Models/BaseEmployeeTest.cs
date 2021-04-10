@@ -23,8 +23,8 @@ namespace Payroll.Tests.Models
             var manager2 = new Manager(DateTime.Now, 100);
 
             // Act
-            manager.AddSubordinate(employee);
-            manager2.AddSubordinate(employee);
+            manager.AddSubordinates(employee);
+            manager2.AddSubordinates(employee);
         }
 
         /// <summary>
@@ -38,11 +38,25 @@ namespace Payroll.Tests.Models
             var manager = new Manager(DateTime.Now, 100);
 
             // Act
-            manager.AddSubordinate(employee);
+            manager.AddSubordinates(employee);
 
             // Assert
             Assert.IsTrue(manager.HasSubordinate(employee));
             Assert.IsTrue(employee.HeadIs(manager));
+        }
+
+        /// <summary>
+        ///     Method for testing exception firing after adding same employee to different chiefs.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "Employee is not set.")]
+        public void TestEmployeesHeadIsNull()
+        {
+            // Arrange
+            var employee = new Employee(DateTime.Now, 100);
+
+            // Act
+            employee.HeadIs(null);
         }
 
         /// <summary>
@@ -56,7 +70,7 @@ namespace Payroll.Tests.Models
             var manager = new Manager(DateTime.Now, 100);
 
             // Act
-            manager.AddSubordinate(employee);
+            manager.AddSubordinates(employee);
             employee.RemoveHead();
 
             // Assert

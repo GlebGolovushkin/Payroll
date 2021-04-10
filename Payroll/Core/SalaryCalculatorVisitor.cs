@@ -9,11 +9,26 @@ namespace Payroll.Models.Visitor
     internal class SalaryCalculatorVisitor : IVisitor
     {
         // Stack of salaries sum by every tree level.
-        private readonly Stack<double> sumOfSalariesByLevel = new Stack<double>();
+        private readonly Stack<double> sumOfSalariesByLevel;
+
         // Stack of salaries sum by every sales tree node.
-        private readonly Stack<double> sumOfSalesSubordinatesSalariesByNode = new Stack<double>(); //TODO ctor
+        private readonly Stack<double> sumOfSalesSubordinatesSalariesByNode;
+
+        // Date to calculate salary.
         protected DateTime dateToCalculate;
+
+        // Salary of current employee.
         protected double salary;
+
+        /// <summary>
+        ///     Ctor.
+        /// </summary>
+        protected SalaryCalculatorVisitor(DateTime date)
+        {
+            dateToCalculate = date;
+            sumOfSalariesByLevel = new Stack<double>();
+            sumOfSalesSubordinatesSalariesByNode = new Stack<double>();
+        }
 
         /// <summary>
         ///     Method to get employees salary and update info with sum of sales.
@@ -100,11 +115,23 @@ namespace Payroll.Models.Visitor
         /// <param name="employee">Employee to calculate salary.</param>
         /// <param name="date">Date until which to calculate the salary.</param>
         /// <returns>Employee's salary.</returns>
-        internal double GetSalary(BaseEmployee employee, DateTime date)
+        public static double GetSalary(BaseEmployee employee, DateTime date)
         {
-            dateToCalculate = date;
-            employee.Accept(this);
-            return salary;
+            var salaryCalculatorVisitor = new SalaryCalculatorVisitor(date);
+
+            salaryCalculatorVisitor.ResetData();
+            employee.Accept(salaryCalculatorVisitor);
+            return salaryCalculatorVisitor.salary;
+        }
+
+        /// <summary>
+        ///     Method to reset data in class.
+        /// </summary>
+        protected virtual void ResetData()
+        {
+            sumOfSalariesByLevel.Clear();
+            sumOfSalesSubordinatesSalariesByNode.Clear();
+            salary = 0;
         }
 
         /// <summary>

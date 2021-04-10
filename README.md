@@ -19,7 +19,9 @@ Which bypasses the algorithm and performs the task you need. For example, gettin
 ## What can be improved or changed
 - First of all to work with this application is difficult. To add employee one by one with setting up date of work start and salary. Than add linking between them is not too frindly. As for me - it is better to develope file parsers (xml/xls). I think in this case it will be easier to use it in different companies.
 - It is needed to create tests for visitors using mocks.
-- Adding emplo
+- Adding much more exceptions and tests. (checking for null).
+- Creating helper for tests to init repos and employees.
+- Relooking threw access modifires (I am shure it should be in another variant).
 
 ## Demo
 If you want to create company with 14 employees like on image you should run following code:
@@ -63,4 +65,3 @@ If you want to create company with 14 employees like on image you should run fol
 ```
 ## Image of the following company structure
 ![N|Solid](https://raw.githubusercontent.com/GlebGolovushkin/Payroll/main/Resources/Images/CompanyEmployeesTree.png?token=AFU7SA34G7ESH6YO2H7F2FLAOHGX6)
-# Have a good day!
