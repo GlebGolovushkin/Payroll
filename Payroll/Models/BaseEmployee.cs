@@ -73,7 +73,7 @@ namespace Payroll.Models
         {
             if (employee == null)
             {
-                throw new ArgumentException("Employee is not set.");
+                throw new NullReferenceException("Employee is not set.");
             }
 
             return Head == employee;
@@ -101,7 +101,7 @@ namespace Payroll.Models
         {
             if (head == null)
             {
-                throw new ArgumentException("Chief is not set.");
+                throw new NullReferenceException("Chief is not set.");
             }
 
             if (HasHead())

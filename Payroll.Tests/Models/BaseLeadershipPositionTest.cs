@@ -46,6 +46,48 @@ namespace Payroll.Tests.Models
         }
 
         /// <summary>
+        ///     Method for testing exception firing after removing employee with null reference.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "Employee is null.")]
+        public void TestEmployeesFailedToRemoveNullReference()
+        {
+            // Arrange
+            var manager = new Manager(DateTime.Now, 100);
+
+            // Act
+            manager.RemoveSubordinate(null);
+        }
+
+        /// <summary>
+        ///     Method for testing exception firing after referencing null to HasSubordinate method.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "Employee is null.")]
+        public void TestEmployeesHasSubordinateNullReference()
+        {
+            // Arrange
+            var manager = new Manager(DateTime.Now, 100);
+
+            // Act
+            manager.HasSubordinate(null);
+        }
+
+        /// <summary>
+        ///     Method for testing exception firing after adding null subordinate.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException), "Employee is null.")]
+        public void TestEmployeesAddSubordinatesNullReference()
+        {
+            // Arrange
+            var manager = new Manager(DateTime.Now, 100);
+
+            // Act
+            manager.AddSubordinates(null);
+        }
+
+        /// <summary>
         ///     Method for testing removing employee from subordinates.
         /// </summary>
         [TestMethod]

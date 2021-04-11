@@ -49,7 +49,7 @@ namespace Payroll.Tests.Models
         ///     Method for testing exception firing after adding same employee to different chiefs.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Employee is not set.")]
+        [ExpectedException(typeof(NullReferenceException), "Employee is not set.")]
         public void TestEmployeesHeadIsNull()
         {
             // Arrange

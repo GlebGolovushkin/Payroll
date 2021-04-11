@@ -28,6 +28,11 @@ namespace Payroll.Models
         /// <param name="employees">Transmitted employee.</param>
         public void AddSubordinates(params BaseEmployee[] employees)
         {
+            if (employees == null)
+            {
+                throw new NullReferenceException("Employee is null.");
+            }
+
             foreach (var employee in employees)
             {
                 if (HasSubordinate(employee))
@@ -47,7 +52,12 @@ namespace Payroll.Models
         /// <returns>Returns true if transmitted employee is subordinate of this employee.</returns>
         public bool HasSubordinate(BaseEmployee employee)
         {
-            return subordinates.FirstOrDefault(s => s == employee) != null;
+            if (employee == null)
+            {
+                throw new NullReferenceException("Employee is null.");
+            }
+
+            return subordinates.Any(e => e == employee);
         }
 
         /// <summary>
@@ -56,6 +66,11 @@ namespace Payroll.Models
         /// <param name="employee">Employee to remove from subordinates.</param>
         public void RemoveSubordinate(BaseEmployee employee)
         {
+            if (employee == null)
+            {
+                throw new NullReferenceException("Employee is null.");
+            }
+
             if (!HasSubordinate(employee))
             {
                 throw new ArgumentException("This employee is not boss of selected one.");

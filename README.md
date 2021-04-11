@@ -24,7 +24,7 @@ The main difficulty with this approach is that to get rid of repeated interactio
 ## What can be improved or changed
 - First of all to work with this application is difficult. To add employee one by one with setting up date of work start and salary. Than add linking between them is not too frindly. As for me - it is better to develope file parsers (xml/xls). I think in this case it will be easier to use it in different companies.
 - It is needed to create tests for visitors using mocks.
-- Adding much more exceptions and tests. (checking for null).
+- Adding much more tests.
 - Creating helper for tests to init repos and employees.
 - Relooking threw access modifires (I am shure it should be in another variant).
 

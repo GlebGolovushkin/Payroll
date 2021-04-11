@@ -34,7 +34,7 @@ namespace Payroll.Core
             {
                 if (ContainsEmployee(employee))
                 {
-                    throw new Exception("Employee already exists in company.");
+                    throw new NullReferenceException("Employee already exists in company.");
                 }
 
                 Employees.Add(employee);
@@ -48,7 +48,7 @@ namespace Payroll.Core
         /// <returns>True if transmitted employee exists in current repository.</returns>
         public bool ContainsEmployee(BaseEmployee employee)
         {
-            return Employees.FirstOrDefault(e => e == employee) != null;
+            return Employees.Any(e => e == employee);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Payroll.Core
         {
             if (!ContainsEmployee(employeeToRemove))
             {
-                throw new Exception("Employee does not exist in company.");
+                throw new NullReferenceException("Employee does not exist in company.");
             }
 
             Employees.Remove(employeeToRemove);
